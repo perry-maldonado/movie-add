@@ -57,9 +57,17 @@
                         <input id="movieTitleInput" type="text" class="form-control" placeholder="Enter Movie Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     </div>
                     <div class="input-group mb-3">
-                        <input id="movieRatingInput" type="text" class="form-control" placeholder="Enter Movie Rating" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        Rate Movie:
+                        <div class="star-rating">
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                        </div>
                     </div>
                 </div>
+                <div id="moviePosterSelection"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button id="saveChanges" type="button" class="btn btn-primary">Save changes</button>
@@ -85,6 +93,7 @@
 
     </div>
 
+    <!-- jQuery and Bootstrap Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -92,6 +101,9 @@
             integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
             crossorigin="anonymous"></script>
 
+    <!-- Keys file -->
+    <script src="keys.js"></script>
+    <!-- Custom JS -->
     <script src="js/movie-app.js"></script>
 </body>
 </html>
