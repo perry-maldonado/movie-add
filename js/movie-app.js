@@ -1,5 +1,7 @@
 const API_URL = 'https://excessive-trail-bottom.glitch.me/movies';
+const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?api_key=' + TMDB_KEY;
 const cards = document.querySelector('#card-container')
+
 fetch(API_URL)
     .then(response => response.json())
     .then(movieData => {
@@ -17,79 +19,48 @@ fetch(API_URL)
                 </div>`
             $('#card-container').append(html);
         })
-
     })
 
-function addMovie(string) {
-    const newMovie = document.querySelector('#newMovie')
-    newMovie.addEventListener('change', (e) => {
-        e.preventDefault()
-        console.log(newMovie.value)
+function addMovie() {
+    $('#movieTitleInput').on('change', (e) => {
+        let input = $('#movieTitleInput').val();
+        let imgSrc = 'https://www.themoviedb.org/t/p/w220_and_h330_face/';
+        fetch(`${TMDB_URL}&query="${input}"`)
+            .then(results => results.json())
+            .then(movieData => movieData.results.forEach(movie => {
+                console.log(movie.poster_path);
+                html = `<img src="${imgSrc}${movie.poster_path}">`
+                $('#moviePosterSelection').append(html);
+            }))
     })
-    let options = {
-        method: 'PUT',
-        headers: {
-            'Content Type': 'application/json',
-        },
-        body: JSON.stringify(movie)
-    }
-    return string
+
+
 }
 
 
-// <div class="card p-3">
-//     <blockquote class="blockquote mb-0 card-body">
-//         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-//         <footer class="blockquote-footer">
-//             <small class="text-muted">
-//                 Someone famous in <cite title="Source Title">Source Title</cite>
-//             </small>
-//         </footer>
-//     </blockquote>
-// </div>
-// <div class="card">
-//     <img src="..." class="card-img-top" alt="...">
-//         <div class="card-body">
-//             <h5 class="card-title">Card title</h5>
-//             <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-//             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-//         </div>
-// </div>
-// <div class="card bg-primary text-white text-center p-3">
-//     <blockquote class="blockquote mb-0">
-//         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-//         <footer class="blockquote-footer text-white">
-//             <small>
-//                 Someone famous in <cite title="Source Title">Source Title</cite>
-//             </small>
-//         </footer>
-//     </blockquote>
-// </div>
-// <div class="card text-center">
-//     <div class="card-body">
-//         <h5 class="card-title">Card title</h5>
-//         <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
-//         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-//     </div>
-// </div>
-// <div class="card">
-//     <img src="..." class="card-img-top" alt="...">
-// </div>
-// <div class="card p-3 text-right">
-//     <blockquote class="blockquote mb-0">
-//         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-//         <footer class="blockquote-footer">
-//             <small class="text-muted">
-//                 Someone famous in <cite title="Source Title">Source Title</cite>
-//             </small>
-//         </footer>
-//     </blockquote>
-// </div>
-// <div class="card">
-//     <div class="card-body">
-//         <h5 class="card-title">Card title</h5>
-//         <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-//         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-//     </div>
-// </div>
-// </div>
+
+$('#saveChanges').on('click', addMovie());
+
+const starRating = [...document.getElementsByClassName("rating_star")];
+
+function rating(stars) {
+    const starClassActive = "rating-start fas fa-star";
+    const starClassInactive = "rating-start far fa-star";
+    const starsLength = stars.length;
+    let i;
+    stars.map((star) => {
+        star.onclick = () => {
+            i = stars.indexOf(star);
+            if (star.className === starClassInactive) {
+                for (i; i >= 0; --i) stars[i].className = starClassActive;
+
+            } else {
+                for (i; i < starsLength; ++i) stars[i].className = starClassInactive;
+            }
+        };
+    })
+}
+
+rating(starRating);
+
+
