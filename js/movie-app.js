@@ -1,5 +1,7 @@
 const API_URL = 'https://excessive-trail-bottom.glitch.me/movies';
+const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?api_key=db857f454fe9aeb8fd24009272277170'
 const cards = document.querySelector('#card-container')
+
 fetch(API_URL)
     .then(response => response.json())
     .then(movieData => {
@@ -17,24 +19,21 @@ fetch(API_URL)
                 </div>`
             $('#card-container').append(html);
         })
-
     })
 
-function addMovie(string) {
-    const newMovie = document.querySelector('#newMovie')
-    newMovie.addEventListener('change', (e) => {
-        e.preventDefault()
-        console.log(newMovie.value)
+function addMovie() {
+    $('#movieTitleInput').on('change', (e) => {
+        let input = $('#movieTitleInput').val();
+        fetch(`${TMDB_URL}&query="${input}"`)
+            .then(results => results.json())
+            .then(movieData => console.log(movieData))
+        console.log(movieData);
     })
-    let options = {
-        method: 'PUT',
-        headers: {
-            'Content Type': 'application/json',
-        },
-        body: JSON.stringify(movie)
-    }
-    return string
 }
+
+$('#saveChanges').on('click', addMovie());
+
+
 
 
 // <div class="card p-3">
