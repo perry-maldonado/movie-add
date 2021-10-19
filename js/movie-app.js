@@ -22,7 +22,7 @@ fetch(API_URL)
     })
 
 function addMovie() {
-    $('#movieTitleInput').on('change', (e) => {
+    $('#movieTitleInput').on('change', () => {
         let input = $('#movieTitleInput').val();
         let imgSrc = 'https://www.themoviedb.org/t/p/w220_and_h330_face/';
         fetch(`${TMDB_URL}&query="${input}"`)
