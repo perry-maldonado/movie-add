@@ -7,7 +7,7 @@ function loadMovies() {
     fetch(API_URL)
         .then(response => response.json())
         .then(movieData => {
-
+            console.log(movieData);
             movieData.forEach(movie => {
                 html = `<div class="card w-75">
                 <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
