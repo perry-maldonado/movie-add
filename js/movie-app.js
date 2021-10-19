@@ -11,7 +11,7 @@ function loadMovies() {
             movieData.forEach(movie => {
                 html = `<div class="card w-75">
                 <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
-                 <div class="card-body">
+                <div class="card-body">
                 <h5 class="card-title">${movie.title.toUpperCase()}</h5>
                 <p class="card-text">User Rating:${movie.rating}</p>
                 <p class="card-text">Genre: ${movie.genre}</p>
@@ -36,9 +36,11 @@ function addMovie() {
         fetch(`${TMDB_URL}&query="${input}"`)
             .then(results => results.json())
             .then(movieData => movieData.results.forEach(movie => {
+                console.log(movie);
                 html = `<img id="${movie.id}" class="posterAdd" src="${imgSrc}${movie.poster_path}">`
                 $('#moviePosterSelection').append(html);
                 $(`#${movie.id}`).on('click', function() {
+
                     let movieInfo = {
                         title: movie.title,
                         rating: "rating",
@@ -57,8 +59,10 @@ function addMovie() {
                     return fetch(API_URL, options)
                         .then(response => response.json())
                         .then(movie => {
+                            console.log(movie);
                             cards.empty();
                             loadMovies();
+
                         })
                 })
             }))
@@ -79,6 +83,10 @@ function deleteMovie(id) {
         }))
 
 }
+
+// function reset() {
+//     $('#movieTitleInput').val(" ");
+// }
 
 $('#saveChanges').on('click', addMovie());
 
