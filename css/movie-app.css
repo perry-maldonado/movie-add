@@ -2,3 +2,12 @@
     cursor: pointer;
     color: gold;
 }
+
+/*.posterAdd {*/
+/*    margin: .9rem;*/
+/*}*/
+
+
+.card-columns {
+    margin: 0 0 2rem 5rem;
+}
