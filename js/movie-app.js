@@ -51,16 +51,18 @@ function addMovie() {
         fetch(`${TMDB_URL}&query="${input}"`)
             .then(results => results.json())
             .then(movieData => movieData.results.forEach(movie => {
+
                 html = `<img id="${movie.id}" class="posterAdd" src="${imgSrc}${movie.poster_path}">`
                 $('#moviePosterSelection').append(html);
                 $(`#${movie.id}`).on('click', function () {
+                    console.log(movie);
                     $('#moviePosterSelection').empty();
                     $('#movieTitleInput').val("");
                     $('#addMovieModal').modal('toggle');
 
                     let movieInfo = {
                         title: movie.title,
-                        rating: movie.rating,
+                        rating: movie.vote_average,
                         poster: `https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`,
                         year: "",
                         genre: movie.genre_ids
