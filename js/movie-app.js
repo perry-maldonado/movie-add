@@ -3,12 +3,12 @@ const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?api_key=' + TMDB_KEY
 const cards = $('#card-container')
 
 $(window).on('load', function() {
+    loadMovies();
     loader.initialize();
     loader.showLoader();
-    setTimeout(loader.hideLoader, 1600);
+    setTimeout(loader.hideLoader, 2000);
 })
 
-loadMovies();
 
 function loadMovies() {
     fetch(API_URL)
@@ -16,7 +16,7 @@ function loadMovies() {
         .then(movieData => {
             console.log(movieData);
             movieData.forEach(movie => {
-                html = `<div class="card w-75">
+                html = `<div class="card w-75" data-dbid="${movie.id}">
                 <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
                 <div class="card-body">
                 <h5 class="card-title">${movie.title.toUpperCase()}</h5>
@@ -25,7 +25,6 @@ function loadMovies() {
                 <button data-dbid="${movie.id}" class="btn btn-danger deleteBtn" type="button"><i class="fas fa-trash-alt"></i></a>
                 <!-- Button trigger modal -->
                 <button 
-                    id="${movie.id}"
                     type="button" 
                     class="btn btn-primary float-right editBtn" 
                     data-toggle="modal" 
@@ -52,14 +51,16 @@ function addMovie() {
         fetch(`${TMDB_URL}&query="${input}"`)
             .then(results => results.json())
             .then(movieData => movieData.results.forEach(movie => {
-                console.log(movie);
                 html = `<img id="${movie.id}" class="posterAdd" src="${imgSrc}${movie.poster_path}">`
                 $('#moviePosterSelection').append(html);
                 $(`#${movie.id}`).on('click', function () {
+                    $('#moviePosterSelection').empty();
+                    $('#movieTitleInput').val("");
+                    $('#addMovieModal').modal('toggle');
 
                     let movieInfo = {
                         title: movie.title,
-                        rating: "rating",
+                        rating: movie.rating,
                         poster: `https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`,
                         year: "",
                         genre: movie.genre_ids
@@ -80,26 +81,17 @@ function addMovie() {
                             loadMovies();
 
                         })
+
                 })
             }))
     })
 }
 
 function editMovie(id) {
-    $('#movieTitleEdit').on('change', (e) => {
-        let editedTitle = $('#movieTitleEdit').val();
-        let editedRating = $('#editRating').val();
-        let movieInfo = {
-            title: editedTitle,
-            rating: editedRating
-        }
-        console.log(movieInfo);
-    })
 
-
-
+    //Should use PATCH to change parts rather than PUT to change the whole obj
     let options = {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -107,22 +99,58 @@ function editMovie(id) {
     }
      return fetch (`${API_URL}/${id}`, options)
          .then((response=>{
-          console.log("edit movie with id:" + id, response);
-          console.log(cards);
-          cards.empty();
-          loadMovies();
-          return response.json()
+            console.log("edit movie with id:" + id, response);
+            console.log(cards);
+            cards.empty();
+            loadMovies();
 
-    }))
+             return response.json()
+         }))
+
+
 }
+
 $(document).on('click', '.editBtn', function (e) {
-    let ID = $(this).attr('id')
+    e.preventDefault();
+    const ID = $(this).parent().parent().attr('data-dbid')
     console.log(ID);
-    editMovie(ID);
-})
-let movie822110 = {
-    rating: 'Good Movie'
-};
+
+    fetch (`${API_URL}/${ID}`)
+        .then(response => response.json())
+        .then(function(results) {
+            console.log(results);
+            $('#movieTitleEdit').val(results.title);
+            $('#editRating').val(results.rating);
+        })
+        .catch(() => {
+            $(".modal-title").html("We're sorry, something went wrong.")
+        })
+
+    $('.editSubmit').on('click', function(e) {
+        e.preventDefault();
+
+        let editedTitle = $('#movieTitleEdit').val();
+        let editedRating = $('#editRating').val();
+
+        let movieInfo = {
+            title: editedTitle,
+            rating: editedRating
+        }
+
+        let options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movieInfo)
+        }
+
+        fetch (`${API_URL}/${ID}`, options)
+            .then(() => location.reload())
+            .catch(() => console.log('Something went wrong with the movie edit!'))
+
+    });
+});
 
 
 
@@ -142,7 +170,6 @@ function deleteMovie(id) {
 }
 
 $('#saveChanges').on('click', addMovie());
-
 
 const starRating = [...document.getElementsByClassName("rating_star")];
 
