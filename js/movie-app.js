@@ -2,6 +2,12 @@ const API_URL = 'https://excessive-trail-bottom.glitch.me/movies';
 const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?api_key=' + TMDB_KEY;
 const cards = $('#card-container')
 
+$(window).on('load', function() {
+    loader.initialize();
+    loader.showLoader();
+    setTimeout(loader.hideLoader, 1600);
+})
+
 loadMovies();
 
 function loadMovies() {
@@ -18,10 +24,13 @@ function loadMovies() {
                 <p class="card-text">Genre: ${movie.genre}</p>
                 <button data-dbid="${movie.id}" class="btn btn-danger deleteBtn" type="button"><i class="fas fa-trash-alt"></i></a>
                 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#editModal"><i class="far fa-edit"></i>
-
-
-
+                <button 
+                    type="button" 
+                    class="btn btn-primary float-right" 
+                    data-toggle="modal" 
+                    data-target="#editModal">
+                        <i class="far fa-edit"></i>
+                </button>
                 </div>
                 </div>`
                 cards.append(html);
@@ -101,6 +110,11 @@ $('#saveChanges').on('click', addMovie());
 //         },
 //         body: JSON.stringify(id)
 //     }
+//      return fetch (`${API_URL}/${id}`, options)
+//          .then(response => response.json())
+
+
+
 //     fetch (`${API_URL}/${id}`, options)
 //         .then((response=>{
 //             console.log("edits movie with id:" + id, response);
