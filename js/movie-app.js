@@ -25,8 +25,9 @@ function loadMovies() {
                 <button data-dbid="${movie.id}" class="btn btn-danger deleteBtn" type="button"><i class="fas fa-trash-alt"></i></a>
                 <!-- Button trigger modal -->
                 <button 
+                    id="${movie.id}"
                     type="button" 
-                    class="btn btn-primary float-right" 
+                    class="btn btn-primary float-right editBtn" 
                     data-toggle="modal" 
                     data-target="#editModal">
                         <i class="far fa-edit"></i>
@@ -84,6 +85,47 @@ function addMovie() {
     })
 }
 
+function editMovie(id) {
+    $('#movieTitleEdit').on('change', (e) => {
+        let editedTitle = $('#movieTitleEdit').val();
+        let editedRating = $('#editRating').val();
+        let movieInfo = {
+            title: editedTitle,
+            rating: editedRating
+        }
+        console.log(movieInfo);
+    })
+
+
+
+    let options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(id)
+    }
+     return fetch (`${API_URL}/${id}`, options)
+         .then((response=>{
+          console.log("edit movie with id:" + id, response);
+          console.log(cards);
+          cards.empty();
+          loadMovies();
+          return response.json()
+
+    }))
+}
+$(document).on('click', '.editBtn', function (e) {
+    let ID = $(this).attr('id')
+    console.log(ID);
+    editMovie(ID);
+})
+let movie822110 = {
+    rating: 'Good Movie'
+};
+
+
+
 function deleteMovie(id) {
     let options = {
         method: 'DELETE'
@@ -99,51 +141,8 @@ function deleteMovie(id) {
 
 }
 
-
 $('#saveChanges').on('click', addMovie());
 
-// function editMovie(id) {
-//     let options = {
-//         method: 'PUT',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(id)
-//     }
-//      return fetch (`${API_URL}/${id}`, options)
-//          .then(response => response.json())
-
-
-
-//     fetch (`${API_URL}/${id}`, options)
-//         .then((response=>{
-//             console.log("edits movie with id:" + id, response);
-//             console.log(cards);
-//             cards.empty();
-//             loadMovies();
-//
-//     }))
-// }
-// $(document).on('click', '.editBtn', function (e) {
-//     let dbID = $(this).attr('data-dbid')
-//     console.log(dbID);
-//     editMovie(dbID);
-// })
-// let movie822110 = {
-//     rating: 'Good Movie'
-// };
-//
-// editMovie(movie822110).then((data)=>console.log(data))
-// 0:
-// data-dbid: 822110
-// genre: [28]
-// id: 822110
-// poster: "https://www.themoviedb.org/t/p/w220_and_h330_face/7hknQnJPd5lfrW1QFJUxmSxp3e4.jpg"
-// rating: "rating"
-// title: "Daniel Craig vs James Bond"
-// year: ""
-
-// <!-- Modal -->
 
 const starRating = [...document.getElementsByClassName("rating_star")];
 

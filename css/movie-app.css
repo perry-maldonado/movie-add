@@ -29,3 +29,12 @@
 .loading-overlay-img {
     border-radius: 5px;
 }
+
+.jumbotron-fluid {
+    background-image: url("../assets/movie-popcorn-entertainment_1530120399830_382133_ver1.0_47007319_ver1.0.jpg");
+    background-blend-mode: multiply;
+    background-color: #666666;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
