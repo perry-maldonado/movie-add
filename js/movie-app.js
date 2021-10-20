@@ -3,6 +3,7 @@ const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?api_key=' + TMDB_KEY
 const cards = $('#card-container')
 
 loadMovies();
+
 function loadMovies() {
     fetch(API_URL)
         .then(response => response.json())
@@ -16,6 +17,11 @@ function loadMovies() {
                 <p class="card-text">User Rating:${movie.rating}</p>
                 <p class="card-text">Genre: ${movie.genre}</p>
                 <button data-dbid="${movie.id}" class="btn btn-danger deleteBtn" type="button"><i class="fas fa-trash-alt"></i></a>
+                <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#editModal"><i class="far fa-edit"></i>
+
+
+
                 </div>
                 </div>`
                 cards.append(html);
@@ -23,7 +29,7 @@ function loadMovies() {
         })
 }
 
-$(document).on('click','.deleteBtn', function(e) {
+$(document).on('click', '.deleteBtn', function (e) {
     let dbID = $(this).attr('data-dbid')
     console.log(dbID);
     deleteMovie(dbID);
@@ -39,7 +45,7 @@ function addMovie() {
                 console.log(movie);
                 html = `<img id="${movie.id}" class="posterAdd" src="${imgSrc}${movie.poster_path}">`
                 $('#moviePosterSelection').append(html);
-                $(`#${movie.id}`).on('click', function() {
+                $(`#${movie.id}`).on('click', function () {
 
                     let movieInfo = {
                         title: movie.title,
@@ -84,11 +90,46 @@ function deleteMovie(id) {
 
 }
 
-// function reset() {
-//     $('#movieTitleInput').val(" ");
-// }
 
 $('#saveChanges').on('click', addMovie());
+
+// function editMovie(id) {
+//     let options = {
+//         method: 'PUT',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(id)
+//     }
+//     fetch (`${API_URL}/${id}`, options)
+//         .then((response=>{
+//             console.log("edits movie with id:" + id, response);
+//             console.log(cards);
+//             cards.empty();
+//             loadMovies();
+//
+//     }))
+// }
+// $(document).on('click', '.editBtn', function (e) {
+//     let dbID = $(this).attr('data-dbid')
+//     console.log(dbID);
+//     editMovie(dbID);
+// })
+// let movie822110 = {
+//     rating: 'Good Movie'
+// };
+//
+// editMovie(movie822110).then((data)=>console.log(data))
+// 0:
+// data-dbid: 822110
+// genre: [28]
+// id: 822110
+// poster: "https://www.themoviedb.org/t/p/w220_and_h330_face/7hknQnJPd5lfrW1QFJUxmSxp3e4.jpg"
+// rating: "rating"
+// title: "Daniel Craig vs James Bond"
+// year: ""
+
+// <!-- Modal -->
 
 const starRating = [...document.getElementsByClassName("rating_star")];
 

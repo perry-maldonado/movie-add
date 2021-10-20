@@ -1,1 +1,0 @@
-let TMDB_KEY = 'db857f454fe9aeb8fd24009272277170';
