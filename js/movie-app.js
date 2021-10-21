@@ -1,5 +1,6 @@
 const API_URL = 'https://excessive-trail-bottom.glitch.me/movies';
 const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?api_key=' + TMDB_KEY;
+const OMDB_URL = `http://www.omdbapi.com/?apikey=${OMDB_KEY}&`
 const cards = $('#card-container')
 
 $(window).on('load', function() {
@@ -54,35 +55,48 @@ function addMovie() {
 
                 html = `<img id="${movie.id}" class="posterAdd" src="${imgSrc}${movie.poster_path}">`
                 $('#moviePosterSelection').append(html);
-                $(`#${movie.id}`).on('click', function () {
+                $(`#${movie.id}`).on('click', function (e) {
+                    console.log(movie.title);
+                    console.log(e);
                     console.log(movie);
                     $('#moviePosterSelection').empty();
                     $('#movieTitleInput').val("");
                     $('#addMovieModal').modal('toggle');
 
-                    let movieInfo = {
-                        title: movie.title,
-                        rating: movie.vote_average,
-                        poster: `https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`,
-                        year: "",
-                        genre: movie.genre_ids
-                    }
+                    let title = movie.title;
 
-                    let options = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(movieInfo)
-                    }
-                    return fetch(API_URL, options)
+                    fetch(`${OMDB_URL}t=${title}`)
                         .then(response => response.json())
                         .then(movie => {
-                            console.log(movie);
-                            cards.empty();
-                            loadMovies();
+                            console.log(movieData);
 
+                            let movieInfo = {
+                                id: movie.imdbID,
+                                title: movie.Title,
+                                rating: movie.imdbRating,
+                                poster: movie.Poster,
+                                year: movie.Year,
+                                genre: movie.Genre
+                            }
+                            let options = {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(movieInfo)
+                            }
+                            fetch(API_URL, options)
+                                .then(response => response.json())
+                                .then(movie => {
+                                    console.log(movie);
+                                    cards.empty();
+                                    loadMovies();
+
+                                })
                         })
+
+
+
 
                 })
             }))
