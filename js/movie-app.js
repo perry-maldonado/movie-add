@@ -194,3 +194,7 @@ function rating(stars) {
 }
 
 rating(starRating);
+
+
+
+
