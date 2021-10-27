@@ -146,7 +146,7 @@ function rating(stars) {
 }
 rating(starRating);
 
-$(window).on('load', function() {
+$(window).on('load', function(e) {
     loadMovies();
         loader.initialize();
         loader.showLoader();
