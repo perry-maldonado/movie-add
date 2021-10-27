@@ -3,14 +3,12 @@ const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?api_key=' + TMDB_KEY
 const OMDB_URL = `http://www.omdbapi.com/?apikey=${OMDB_KEY}&`
 const VIDEO_URL = `https://image.tmdb.org/t/p/w500/`
 const cards = $('#card-container')
-
 const starRating = [...document.getElementsByClassName("rating_star")];
 
 function loadMovies() {
     fetch(API_URL)
         .then(results => results.json())
                 .then(movieData => {
-                    console.log(movieData.id);
                     movieData.forEach(movie => {
                         html = `<div class="card movie-card w-75" data-dbid="${movie.id}">
                         <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
@@ -31,13 +29,8 @@ function loadMovies() {
                         </div>`
                         cards.append(html);
                     })
-
                 })
-
 }
-
-
-
 function addMovie() {
     $('#movieTitleInput').on('change', (e) => {
         let input = $('#movieTitleInput').val();
@@ -98,7 +91,6 @@ function addMovie() {
             }))
     })
 }
-
 function editMovie(id) {
 
     //Should use PATCH to change parts rather than PUT to change the whole obj
@@ -121,7 +113,6 @@ function editMovie(id) {
 
 
 }
-
 function deleteMovie(id) {
     let options = {
         method: 'DELETE'
@@ -136,7 +127,6 @@ function deleteMovie(id) {
         }))
 
 }
-
 function rating(stars) {
     const starClassActive = "rating-start fas fa-star";
     const starClassInactive = "rating-start far fa-star";
@@ -160,7 +150,6 @@ $(window).on('load', function() {
     loadMovies();
         loader.initialize();
         loader.showLoader();
-        loader.hideLoader()
     setTimeout(loader.hideLoader, 6000);
 })
 $(document).on('click', '.deleteBtn', function (e) {
@@ -210,7 +199,6 @@ $(document).on('click', '.editBtn', function (e) {
     });
 });
 $('#saveChanges').on('click', addMovie());
-
 $(document).on('dblclick','.movie-card', function() {
     let input = $(this).children().children().eq(0).text();
 
