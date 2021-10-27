@@ -9,88 +9,64 @@
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <!-- Custom CSS Stylesheet -->
     <link rel="stylesheet" href="css/movie-app.css">
-    <title>Popcorn Buttery</title>
+    <title>Movie Butter Popcorn</title>
 
 </head>
 
 <body>
-<!-- Main Nav -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<!--  Add Movie Modal -->
-<div class="modal fade" id="addMovieModal" tabindex="-1" aria-labelledby="addMovieModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addMovieModalLabel">Add A Movie</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group mb-3">
-                    <input id="movieTitleInput" type="text" class="form-control" placeholder="Enter Movie Title"
-                           aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <!-- Main Nav -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><h2>Movie Butter Popcorn</h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-flex">
+                    <h4 class="mr-2 my-auto">ADD MOVIE</h4>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMovieModal">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--  Add Movie Modal -->
+    <div class="modal fade" id="addMovieModal" tabindex="-1" aria-labelledby="addMovieModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMovieModalLabel">Add A Movie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="input-group mb-3">
-                    Rate Movie:
-                    <div class="star-rating">
-                        <i class="rating_star far fa-star"></i>
-                        <i class="rating_star far fa-star"></i>
-                        <i class="rating_star far fa-star"></i>
-                        <i class="rating_star far fa-star"></i>
-                        <i class="rating_star far fa-star"></i>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input id="movieTitleInput" type="text" class="form-control" placeholder="Enter Movie Title"
+                               aria-label="Add Movie" aria-describedby="basic-addon2">
+                    </div>
+                    <div class="input-group mb-3">
+                        Rate Movie:
+                        <div class="star-rating">
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                            <i class="rating_star far fa-star"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="moviePosterSelection"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="saveChanges" type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Jumbotron -->
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Butter Movies</h1>
-        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-                   aria-describedby="button-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search party</button>
+                <div id="moviePosterSelection"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<!--                    <button id="saveChanges" type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="card-columns" id="card-container">
-<!-- Edit Modal on the card body-->
+    <!-- Edit Modal on the card body-->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -101,28 +77,68 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
+                    <div class="input-group mb-3">
+                        <input id="movieTitleEdit" type="text" class="form-control" placeholder="Edit Movie Title"
+                               aria-label="Edit Movie Titlte" aria-describedby="basic-addon2">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="editRating">Rating</label>
+                        </div>
+                        <select class="custom-select" id="editRating">
+                            <option selected>Choose...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary editBtn">Done edit</button>
+                    <button type="submit" class="btn btn-primary editSubmit">Done edit</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Jumbotron -->
+    <div class="main-container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Butter Movies</h1>
+                <p class="lead">Every Movie is Better With Movie Butter</p>
+<!--                <div class="input-group mb-3">-->
+<!--                    <input type="text" class="form-control" placeholder="Search Movies" aria-label="Recipient's username"-->
+<!--                           aria-describedby="button-addon2">-->
+<!--                    <div class="input-group-append">-->
+<!--                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search party</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+        <!-- Cards -->
+        <div class="card-columns" id="card-container">
+    </div>
 
-<!-- jQuery and Bootstrap Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-        crossorigin="anonymous"></script>
 
-<!-- Keys file -->
-<script src=".idea/keys.js"></script>
-<!-- Custom JS -->
-<script src="js/movie-app.js"></script>
+
+
+    <!-- jQuery and Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+            crossorigin="anonymous"></script>
+
+    <!-- Keys file -->
+    <script src=".idea/keys.js"></script>
+    <!-- Loader -->
+        <script src="js/loader.js"></script>
+    <!-- Custom JS -->
+    <script src="js/movie-app.js"></script>
 </body>
 </html>
+
+

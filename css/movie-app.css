@@ -1,9 +1,72 @@
+body {
+    padding: 0;
+    margin: 0;
+}
 .posterAdd {
-
     margin: .9rem;
 }
 
 #card-container {
     margin-left: 7rem;
 
+}
+
+.loading-overlay {
+    background: rgba(26, 26,26, 0.7);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    top: 0;
+}
+
+.loading-overlay-image-container {
+    display: none;
+    position: fixed;
+    z-index: 7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-overlay-img {
+    border-radius: 5px;
+}
+
+.jumbotron-fluid {
+    background-image: url("../assets/movie-popcorn-entertainment_1530120399830_382133_ver1.0_47007319_ver1.0.jpg");
+    background-blend-mode: multiply;
+    background-color: #666666;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+
+.poster-jumbotron {
+    height: 800px;
+    margin: 0;
+}
+
+.movieBackInfo {
+    margin-left: 8rem;
+    margin-top: 0;
+}
+
+#backClose {
+    float: right;
+}
+
+#movieBackTitle {
+    text-decoration: underline;
+    padding-bottom: .5rem;
+}
+
+.posterBack {
+    height: 400px;
+    margin: 1rem 0 1rem 0;
+}
+
+#preview {
+    border: 3px solid #fff;
+    margin-top: 7rem;
 }
