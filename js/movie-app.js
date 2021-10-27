@@ -150,7 +150,7 @@ $(window).on('load', function(e) {
     loadMovies();
         loader.initialize();
         loader.showLoader();
-    setTimeout(loader.hideLoader, 6000);
+    setTimeout(loader.hideLoader, 2000);
 })
 $(document).on('click', '.deleteBtn', function (e) {
     let dbID = $(this).attr('data-dbid')
@@ -224,7 +224,7 @@ $(document).on('dblclick','.movie-card', function() {
                                         <h1 id="movieBackTitle">${movieData.title}</h1>
                                         <p>${movieData.overview}</p>
                                         <img src="${VIDEO_URL}/${movieData.poster_path}" class="posterBack">
-                                        <div class="d-flex">
+                                        <div class="users d-flex">
                                             <p class="m-2">${rating}</p>
                                             <p class="m-2">${genre}</p>
                                             <p class="m-2">Release Date: ${movieData.release_date}</p>
